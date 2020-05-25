@@ -6,7 +6,7 @@ const users = (state = {}, action) => {
         case ADD_QUESTION_TO_USER:
             const { authedUser, qid, selectedOption } = action
             const user = state[authedUser]
-            return { ...state, [authedUser]: { answers: { ...user.answers, [qid]: selectedOption } } }
+            return { ...state, [authedUser]: { ...user, answers: { ...user.answers, [qid]: selectedOption } } }
         default: return state
     }
 }
