@@ -33,7 +33,7 @@ class NewQuestion extends Component {
                 <form onSubmit={this.handleSubmit}>
                     <input type='text' onChange={this.handleOptionOneChange} placeholder='Option one' />
                     <input type='text' onChange={this.handleOptionTwoChange} placeholder='Option two' />
-                    <button type='submit'>Create</button>
+                    <button type='submit' disabled={!this.state.optionOne || !this.state.optionTwo}>Create</button>
                 </form>
             </div>
         )
