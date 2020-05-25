@@ -47,7 +47,8 @@ class Poll extends Component {
                             name={poll.id}
                             onChange={() => this.handleOptionChange('optionOne')} />
                         <label htmlFor="optionOne">{poll.optionOne.text}</label> 
-                        {isAnsweredByUser && <label htmlFor="optionOne">{`  |   ${round(100 * op1Count/total)}%`}</label>} <br />
+                        {isAnsweredByUser &&
+                         <label htmlFor="optionOne">{`  |   ${round(100 * op1Count/total)}% (${op1Count} out of ${total})`}</label>} <br />
 
                         <input type='radio'
                             id='optionTwo'
@@ -56,7 +57,8 @@ class Poll extends Component {
                             name={poll.id}
                             onChange={() => this.handleOptionChange('optionTwo')} />
                         <label htmlFor="optionTwo">{poll.optionTwo.text}</label>
-                        {isAnsweredByUser && <label htmlFor="optionTwo">{`  |   ${round(100 * op2Count / total)}%`}</label>}
+                        {isAnsweredByUser &&
+                         <label htmlFor="optionTwo">{`  |   ${round(100 * op2Count / total)}% (${op2Count} out of ${total})`}</label>}
                     </div>
                     <button disabled={isAnsweredByUser} onClick={this.handleSubmit}>Submit</button>
                 </div>
@@ -69,10 +71,8 @@ class Poll extends Component {
     }
 }
 
-const mapStateToProps = ({ polls, users, authedUser }, { pollId }) => {
-    console.log(polls);
-    
-    const poll = polls[pollId]
+const mapStateToProps = ({ polls, users, authedUser }, { match }) => {
+    const poll = polls[match.params.pollId]
     const isAnsweredByUser = poll
         ? poll.optionOne.votes.concat(poll.optionTwo.votes).includes(authedUser)
         : false
