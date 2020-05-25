@@ -5,10 +5,12 @@ import UserSummary from './UserSummary'
 class LeaderBoard extends Component {
     render() {
         const { users } = this.props
+        const score = user => users[user].questions.length + Object.keys(users[user].answers).length
+        const byScore = (a, b) => score(b) - score(a)
         return (
             <div className='leader-board'>
                 <ul>
-                    {Object.keys(users).map(id => (
+                    {Object.keys(users).sort(byScore).map(id => (
                         <li key={id}>
                             <UserSummary id={id} />
                         </li>
