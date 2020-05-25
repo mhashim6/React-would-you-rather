@@ -1,9 +1,9 @@
 import { showLoading, hideLoading } from "react-redux-loading";
 
-import { loadUsers, addQuestionToUser } from "./users"
-import { loadPolls, addAnswerToPoll } from "./polls"
+import { loadUsers, addAnswerToUser, addPollToUser } from "./users"
+import { loadPolls, addAnswerToPoll, addNewPoll } from "./polls"
 
-import { getAllData, answerPoll } from "../api"
+import { getAllData, answerPoll, savePoll } from "../api"
 
 export const ANSWER_POLL = 'ANSWER_POLL'
 
@@ -24,10 +24,18 @@ export const chooseOption = ({ qid, selectedOption }) => (dispatch, getState) =>
             qid,
             selectedOption,
         }))
-        dispatch(addQuestionToUser({
+        dispatch(addAnswerToUser({
             authedUser,
             qid,
             selectedOption,
         }))
+    })
+}
+
+export const createNewPoll = ({ optionOneText, optionTwoText }) => (dispatch, getState) => {
+    const { authedUser } = getState()
+    return savePoll({ author: authedUser, optionOneText, optionTwoText }).then((poll) => {
+        dispatch(addNewPoll({ author: authedUser, qid: poll.id, timestamp: poll.timestamp, optionOne: optionOneText, optionTwo: optionTwoText }))
+        dispatch(addPollToUser({ author: authedUser, qid: poll.id }))
     })
 }
