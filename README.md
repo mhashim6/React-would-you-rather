@@ -1,3 +1,8 @@
+# Would You Rather
+The second project of Udacity's React Nanodegree. 
+
+This project covers **React, Redux, React-Redux, Thunks, Middleware, React-Router**
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
